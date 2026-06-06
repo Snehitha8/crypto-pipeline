@@ -1,0 +1,39 @@
+name: Daily Crypto Pipeline
+
+on:
+  schedule:
+    - cron: '0 8 * * *'  # Every day at 8am UTC
+  workflow_dispatch:  # Allow manual runs
+
+jobs:
+  run-pipeline:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.11'
+
+      - name: Install dependencies
+        run: |
+          pip install requests pandas google-cloud-bigquery google-cloud-storage dbt-bigquery
+
+      - name: Set up Google credentials
+        run: |
+          echo '${{ secrets.GCP_CREDENTIALS }}' > credentials.json
+
+      - name: Run extract
+        run: python extract.py
+
+      - name: Run load to BigQuery
+        run: python load_to_bigquery.py
+
+      - name: Run dbt
+        run: |
+          cd crypto_transforms
+          dbt run
+          dbt test
