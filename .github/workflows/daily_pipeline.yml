@@ -25,6 +25,7 @@ jobs:
       - name: Set up Google credentials
         run: |
           echo '${{ secrets.GCP_CREDENTIALS }}' > credentials.json
+        shell: bash
 
       - name: Run extract
         run: python extract.py
