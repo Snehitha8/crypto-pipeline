@@ -2,8 +2,8 @@ name: Daily Crypto Pipeline
 
 on:
   schedule:
-    - cron: '0 8 * * *'  # Every day at 8am UTC
-  workflow_dispatch:  # Allow manual runs
+    - cron: '0 8 * * *'
+  workflow_dispatch:
 
 jobs:
   run-pipeline:
@@ -11,10 +11,10 @@ jobs:
 
     steps:
       - name: Checkout code
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
 
       - name: Set up Python
-        uses: actions/setup-python@v4
+        uses: actions/setup-python@v5
         with:
           python-version: '3.11'
 
@@ -23,8 +23,10 @@ jobs:
           pip install requests pandas google-cloud-bigquery google-cloud-storage dbt-bigquery
 
       - name: Set up Google credentials
+        env:
+          GCP_CREDENTIALS: ${{ secrets.GCP_CREDENTIALS }}
         run: |
-          echo '${{ secrets.GCP_CREDENTIALS }}' > credentials.json
+          echo "$GCP_CREDENTIALS" > credentials.json
         shell: bash
 
       - name: Run extract
