@@ -4,7 +4,7 @@ from datetime import datetime
 from google.cloud import bigquery
 
 # Tell Python where your credentials are
-os.environ["GOOGLE_APPLICATION_CREDENTIALS"] = r"C:\Users\snehi\crypto-pipeline\credentials.json"
+os.environ["GOOGLE_APPLICATION_CREDENTIALS"] = "credentials.json"
 
 # Your Google Cloud details
 PROJECT_ID = "crypto-pipeline-498202"
