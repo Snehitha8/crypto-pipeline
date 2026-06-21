@@ -36,7 +36,7 @@ jobs:
       - name: Run load to BigQuery
         run: python load_to_bigquery.py
 
-     - name: Set up dbt profile
+      - name: Set up dbt profile
         run: |
           mkdir -p ~/.dbt
           cat > ~/.dbt/profiles.yml << 'EOF'
