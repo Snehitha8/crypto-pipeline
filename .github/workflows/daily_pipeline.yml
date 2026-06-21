@@ -22,11 +22,13 @@ jobs:
         run: |
           pip install requests pandas google-cloud-bigquery google-cloud-storage dbt-bigquery
 
-      - name: Set up Google credentials
+           - name: Set up Google credentials
         env:
           GCP_CREDENTIALS: ${{ secrets.GCP_CREDENTIALS }}
         run: |
           echo "$GCP_CREDENTIALS" > credentials.json
+          wc -c credentials.json
+          head -c 50 credentials.json
         shell: bash
 
       - name: Run extract
