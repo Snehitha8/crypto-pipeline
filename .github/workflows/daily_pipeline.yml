@@ -8,7 +8,6 @@ on:
 jobs:
   run-pipeline:
     runs-on: ubuntu-latest
-
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
@@ -22,7 +21,7 @@ jobs:
         run: |
           pip install requests pandas google-cloud-bigquery google-cloud-storage dbt-bigquery
 
-           - name: Set up Google credentials
+      - name: Set up Google credentials
         env:
           GCP_CREDENTIALS: ${{ secrets.GCP_CREDENTIALS }}
         run: |
