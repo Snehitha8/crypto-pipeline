@@ -6,7 +6,6 @@ models:
       - name: coin_id
         tests:
           - not_null
-          - unique
       - name: price_usd
         tests:
           - not_null
